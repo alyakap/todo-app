@@ -10,12 +10,8 @@ class TodoItem extends LionOption {
     return [
       ...super.styles,
       css`
-        /* Add your custom styles here */
-        :host {
-          display: block;
-          padding: 8px;
-          border-bottom: 1px solid #ddd;
-        }
+
+
       `,
     ];
   }

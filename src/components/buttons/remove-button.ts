@@ -1,4 +1,4 @@
-import { css, html } from 'lit';
+import { css } from 'lit';
 import { LionButton } from '@lion/ui/button.js';
 
 class RemoveButton extends LionButton {

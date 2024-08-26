@@ -9,6 +9,9 @@ import './buttons/remove-button.js';
 interface TodoItem {
   text: string;
 }
+interface LionInputElement extends HTMLInputElement {
+  modelValue: string;
+} 
 
 @customElement('todo-list')
 export class TodoList extends LitElement {
@@ -19,7 +22,7 @@ export class TodoList extends LitElement {
     if (e) {
       e.preventDefault();
     }
-    const input = this.shadowRoot?.getElementById('addTodoInput') as any;
+    const input = this.shadowRoot?.getElementById('addTodoInput') as LionInputElement;
 
     const inputValue = input.modelValue;
     if (inputValue) {
