@@ -10,9 +10,5 @@ class RemoveButton extends LionButton {
       `,
     ];
   }
-
-  render() {
-    return html`<slot>X</slot>`;
-  }
 }
 customElements.define('remove-button', RemoveButton);
