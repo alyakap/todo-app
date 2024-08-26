@@ -6,17 +6,11 @@ import '@lion/ui/define/lion-option.js';
 export class TodoItem extends LitElement {
 
   @property({ type: String }) text = '';
-  @property({ type: Boolean }) completed = false;
 
-  static styles = css`
-    .completed {
-      text-decoration: line-through;
-    }
-  `;
 
   render() {
     return html`
-      <lion-option class="${this.completed ? 'completed' : ''}">
+      <lion-option>
         ${this.text}
       </lion-option>
     `;
