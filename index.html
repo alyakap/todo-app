@@ -20,16 +20,16 @@
     <todo-app></todo-app>
 
     
-    <script type="module" src="https://alyakap.github.io/todo-app/Bzq0ng7A.js"></script>
+    <script type="module" src="https://alyakap.github.io/todo-app/bundle.js"></script>
   
 
-<script type="module" src="./ct0J-A-b.js"></script><script inject-service-worker="">
+<script type="module" src="./bundle.js"></script><script inject-service-worker="">
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker
-          .register('todo-app/sw.js')
+          .register('sw.js')
           .then(function() {
-            console.log('ServiceWorker registered from "todo-app/sw.js".');
+            console.log('ServiceWorker registered from "sw.js".');
           })
           .catch(function(err) {
             console.log('ServiceWorker registration failed: ', err);
