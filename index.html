@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="Description" content="Put your description here.">
+    <base href="/">
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background-color: #ededed;
+      }
+    </style>
+    <title>todo-app</title>
+  </head>
+
+  <body>
+    <todo-app></todo-app>
+
+    
+    <script type="module" src="https://alyakap.github.io/todo-app/Bzq0ng7A.js"></script>
+  
+
+<script type="module" src="./Bzq0ng7A.js"></script><script inject-service-worker="">
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker
+          .register('todo-app/sw.js')
+          .then(function() {
+            console.log('ServiceWorker registered from "todo-app/sw.js".');
+          })
+          .catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+  </script></body></html>
