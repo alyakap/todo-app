@@ -1,10 +1,10 @@
 import { LitElement, html } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
-import '@lion/ui/define/lion-listbox.js';
-import '@lion/ui/define/lion-option.js';
-import '@lion/ui/define/lion-input.js';
-import '@lion/ui/define/lion-button.js';
-import './todoitem';
+import './new-item-input';
+import './listElements/list-box.js';
+import './buttons/add-button.js';
+import './listElements/todo-item.js';
+import './buttons/remove-button.js';
 
 interface TodoItem {
   text: string;
@@ -19,26 +19,32 @@ export class TodoList extends LitElement {
     if (e) {
       e.preventDefault();
     }
-    const input = this.shadowRoot?.getElementById('addTodoInput') as HTMLInputElement;
-    if (input.value) {
+    const input = this.shadowRoot?.getElementById('addTodoInput') as any;
+
+    const inputValue = input.modelValue;
+    if (inputValue) {
       const newItem: TodoItem = { text: input.value};
       this.dispatchEvent(new CustomEvent('add-item', { detail: newItem }));
-      input.value = ''; 
+      input.modelValue = ''; 
     }
+  }
+
+  _removeItem(text: string) {
+    this.dispatchEvent(new CustomEvent('remove-item', { detail: text }));
   }
 
   render() {
     return html`
-  
-      <lion-input id="addTodoInput"></lion-input>
-      <lion-button @click=${this._addNewItem.bind(this)}>Add item</lion-button>
+      <new-item-input id="addTodoInput" .modelValue=${''}></new-item-input>
+      <add-button @click=${this._addNewItem.bind(this)}>Add item</add-button>
 
-      <lion-listbox name="listbox">
-        ${this.items.map(item => html`
-          <todo-item .text="${item.text}"></todo-item>
+      <list-box name="listbox">
+        ${this.items.map((item) => html`
+          <todo-item .text="${item.text}">
+            <remove-button @click=${() => this._removeItem(item.text)}>X</remove-button>
+          </todo-item>
         `)}
-        </lion-listbox>
-
+      </list-box>
     `;
   }
 }

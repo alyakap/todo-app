@@ -5,16 +5,15 @@ import '@lion/ui/define/lion-button.js';
 
 interface TodoItem {
   text: string;
-  completed: boolean;
 }
 
 @customElement('todo-app')
 export class TodoApp extends LitElement {
 
   @property({ type: Boolean }) showList = false;
-  @property({ type: Array }) todoItems = [
+  @property({ type: Array }) todoItems: TodoItem[] = [
     { text: 'Wash the dishes'},
-    { text: 'Buy groceries'},
+    { text: 'Buy groceries' },
   ];
 
   toggleListVisibility() {
@@ -26,6 +25,10 @@ export class TodoApp extends LitElement {
     this.todoItems = [...this.todoItems, item];
   }
   
+  removeItem(e: CustomEvent) {
+    const itemText = e.detail;
+    this.todoItems = this.todoItems.filter(item => item.text !== itemText);
+  }
 
   render() {
     return html`
@@ -33,8 +36,12 @@ export class TodoApp extends LitElement {
         ${this.showList ? 'Hide List' : 'Show List'}
       </lion-button>
 
-      ${this.showList ? html`<todo-list .items=${this.todoItems} @add-item=${this.addNewItem}></todo-list>` : ''}
-
+      ${this.showList ? html`
+        <todo-list 
+          .items=${this.todoItems} 
+          @add-item=${this.addNewItem.bind(this)} 
+          @remove-item=${this.removeItem.bind(this)}>
+        </todo-list>` : ''}
     `;
   }
 }
