@@ -9,31 +9,25 @@ import path from 'path';
 export default {
   input: 'index.html',
   output: {
-    entryFileNames: '[hash].js',
-    chunkFileNames: '[hash].js',
-    assetFileNames: '[hash][extname]',
-    format: 'es',
     dir: 'dist',
+    format: 'es',
+    inlineDynamicImports: true,
+    entryFileNames: 'bundle.js',  // Single output JS file
   },
   preserveEntrySignatures: false,
 
   plugins: [
-    /** Enable using HTML as rollup entrypoint */
     html({
       minify: false,
       injectServiceWorker: true,
       serviceWorkerPath: 'dist/todo-app/sw.js',
     }),
-    /** Resolve bare module imports */
     nodeResolve(),
-    /** Minify JS, compile JS to a lower language target */
     esbuild({
       minify: true,
       target: ['chrome64', 'firefox67', 'safari11.1'],
     }),
-    /** Bundle assets references via import.meta.url */
     importMetaAssets(),
-    /** Minify html and css tagged template literals */
     babel({
       plugins: [
         [
@@ -53,15 +47,11 @@ export default {
         ],
       ],
     }),
-    /** Create and inject a service worker */
     generateSW({
       globIgnores: ['polyfills/*.js', 'nomodule-*.js'],
       navigateFallback: '/index.html',
-      // where to output the generated sw
       swDest: path.join('dist', 'sw.js'),
-      // directory to match patterns against to be precached
       globDirectory: path.join('dist'),
-      // cache any html js and css by default
       globPatterns: ['**/*.{html,js,css,webmanifest}'],
       skipWaiting: true,
       clientsClaim: true,
