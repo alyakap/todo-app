@@ -27,9 +27,9 @@
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker
-          .register('sw.js')
+          .register('todo-app/sw.js')
           .then(function() {
-            console.log('ServiceWorker registered from "sw.js".');
+            console.log('ServiceWorker registered from "todo-app/sw.js".');
           })
           .catch(function(err) {
             console.log('ServiceWorker registration failed: ', err);
