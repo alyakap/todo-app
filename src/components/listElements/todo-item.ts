@@ -21,7 +21,9 @@ class TodoItem extends LionOption {
   }
 
   render() {
-    return html`<span>${this.text}</span>`;
-  }
+    return html`
+      <span>${this.text}</span>
+      <slot></slot>
+    `;}
 }
 customElements.define('todo-item', TodoItem);

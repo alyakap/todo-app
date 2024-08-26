@@ -41,7 +41,7 @@ export class TodoList extends LitElement {
       <list-box name="listbox">
         ${this.items.map((item) => html`
           <todo-item .text="${item.text}">
-            <remove-button @click=${() => this._removeItem(item.text)}>X</remove-button>
+            <remove-button @click=${() => this._removeItem(item.text)}></remove-button>
           </todo-item>
         `)}
       </list-box>
