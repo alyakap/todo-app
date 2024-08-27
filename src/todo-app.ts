@@ -16,31 +16,31 @@ export class TodoApp extends LitElement {
     { text: 'Buy groceries' },
   ];
 
-  toggleListVisibility() {
+  toggleListVisibility = () => {
     this.showList = !this.showList;
-  }
+  };
 
-  addNewItem(e: CustomEvent) {
+  addNewItem = (e: CustomEvent) => {
     const item: TodoItem = e.detail;
     this.todoItems = [...this.todoItems, item];
-  }
+  };
   
-  removeItem(e: CustomEvent) {
+  removeItem = (e: CustomEvent) => {
     const itemText = e.detail;
     this.todoItems = this.todoItems.filter(item => item.text !== itemText);
-  }
+  };
 
   render() {
     return html`
-      <lion-button @click=${this.toggleListVisibility.bind(this)}>
+      <lion-button @click=${this.toggleListVisibility}>
         ${this.showList ? 'Hide List' : 'Show List'}
       </lion-button>
 
       ${this.showList ? html`
         <todo-list 
           .items=${this.todoItems} 
-          @add-item=${this.addNewItem.bind(this)} 
-          @remove-item=${this.removeItem.bind(this)}>
+          @add-item=${this.addNewItem} 
+          @remove-item=${this.removeItem}>
         </todo-list>` : ''}
     `;
   }

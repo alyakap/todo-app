@@ -18,4 +18,4 @@ class NewItemInput extends LionInput {
     ];
   }
 }
-customElements.define('new-item-input', NewItemInput);
+customElements.define('newitem-input', NewItemInput);
