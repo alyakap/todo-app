@@ -10,8 +10,9 @@ class TodoItem extends LionOption {
     return [
       ...super.styles,
       css`
-
-
+        :host {
+          font-family: 'ING Me Regular', sans-serif;
+        }
       `,
     ];
   }
@@ -20,6 +21,7 @@ class TodoItem extends LionOption {
     return html`
       <span>${this.text}</span>
       <slot></slot>
-    `;}
+    `;
+  }
 }
 customElements.define('todo-item', TodoItem);
