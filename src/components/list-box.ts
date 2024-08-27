@@ -1,15 +1,16 @@
-
 import { css } from 'lit';
 import { LionListbox } from '@lion/ui/listbox.js';
-
 
 class ListBox extends LionListbox {
   static get styles() {
     return [
-      ...super.styles,
+      super.styles,
       css`
-        /* Add your custom styles here */
-        
+        :host {
+          display: block;
+          max-height: 300px;
+          overflow-y: auto;
+        }
       `,
     ];
   }

@@ -19,26 +19,52 @@ class MainButton extends LionButton {
     return [
       ...super.styles,
       css`
+        :host {
+          display: flex; /* Flexbox layout */
+          justify-content: space-between;
+          align-items: center;
+          padding: 0;
+          margin: 0;
+          background-color: inherit;
+        }
+
         .root {
+          display: flex;
+          align-items: center;
+          justify-content: center;
           color: var(--white);
           font-size: 1.1rem;
-          padding: 0.7rem 1.5rem;
+          padding: 1rem 1rem;
           border-radius: 0.3rem;
           border: none;
-          right: 0.5rem;
-          bottom: 0.5rem;
+          background-color: inherit;
         }
+
+        :host(:hover) {
+          background: inherit;
+        }
+
         .remove {
-          background-color: #ffcccc;
+          background-color: red;
         }
+
         .show {
-          background-color: blue;
+          position: fixed;
+          top: 50%;
+          right: 50%;
+          background-color: white;
         }
+
         .hide {
-          background-color: green;
+          position: fixed;
+          top: 10px;
+          right: 10px;
+          background-color: white;
+          z-index: 10;
         }
+
         .add {
-          background-color: orange;
+          background-color: aqua;
         }
       `,
     ];

@@ -11,12 +11,14 @@ class TodoItem extends LionOption {
       ...super.styles,
       css`
         :host {
-          font-family: 'ING Me Regular', sans-serif;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px solid #ccc;
         }
       `,
     ];
   }
-
   render() {
     return html`
       <span>${this.text}</span>

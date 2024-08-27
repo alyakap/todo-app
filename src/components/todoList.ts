@@ -7,48 +7,80 @@ import './main-button.js';
 
 interface TodoItem {
   text: string;
-}
-interface LionInputElement extends HTMLInputElement {
-  modelValue: string;
+  id: number;
 }
 
 @customElement('todo-list')
 export class TodoList extends LitElement {
-  static styles = css`
-    :host {
-      font-family: 'ING Me Regular', sans-serif;
-    }
-  `;
+  static get styles() {
+    return [
+      css`
+        :host {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .input-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+        }
+
+        newitem-input {
+          flex-grow: 1;
+        }
+
+        main-button.add {
+          margin-left: 0.5rem;
+        }
+
+        list-box {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      `,
+    ];
+  }
 
   @property({ type: Array }) items: TodoItem[] = [];
+
+  private _nextId = 1;
 
   _addNewItem(e: Event) {
     if (e) e.preventDefault();
     const input = this.shadowRoot?.getElementById(
       'addTodoInput',
-    ) as LionInputElement;
+    ) as HTMLInputElement & { modelValue: string };
     const inputValue = input.modelValue;
     if (inputValue) {
-      const newItem: TodoItem = { text: input.value };
+      const newItem: TodoItem = { text: inputValue, id: this._nextId++ };
       this.dispatchEvent(new CustomEvent('add-item', { detail: newItem }));
       input.modelValue = '';
     }
   }
 
-  _removeItem(text: string) {
-    this.dispatchEvent(new CustomEvent('remove-item', { detail: text }));
+  _removeItem(id: number) {
+    this.dispatchEvent(new CustomEvent('remove-item', { detail: id }));
   }
 
   render() {
     return html`
-      <newitem-input id="addTodoInput" .modelValue=${''}></newitem-input>
+      <div class="input-container">
+        <newitem-input
+          id="addTodoInput"
+          .modelValue=${''}
+          class="customStyle"
+        ></newitem-input>
 
-      <main-button
-        text="Add item"
-        customStyledClass="add"
-        @click=${this._addNewItem.bind(this)}
-      >
-      </main-button>
+        <main-button
+          text="Add"
+          customStyledClass="add"
+          @click=${this._addNewItem.bind(this)}
+        ></main-button>
+      </div>
 
       <list-box name="listbox">
         ${this.items.map(
@@ -57,9 +89,8 @@ export class TodoList extends LitElement {
               <main-button
                 text="X"
                 customStyledClass="remove"
-                @click=${() => this._removeItem(item.text)}
-              >
-              </main-button>
+                @click=${() => this._removeItem(item.id)}
+              ></main-button>
             </todo-item>
           `,
         )}
